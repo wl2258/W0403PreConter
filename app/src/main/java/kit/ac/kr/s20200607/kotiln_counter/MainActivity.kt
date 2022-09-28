@@ -21,15 +21,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-           MyApp {
-               Counter()
-           }
+            MyApp {
+                Counter()
+            }
         }
     }
 }
 
 @Composable
-fun MyApp(content: @Composable () -> Unit ) {
+fun MyApp(content: @Composable () -> Unit) {
     Kotiln_counterTheme {
         // A surface container using the 'background' color from the theme
         Surface(
@@ -44,25 +44,35 @@ fun MyApp(content: @Composable () -> Unit ) {
 @Composable
 fun Counter() {
     var text by remember { mutableStateOf(0) }
-    
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(8.dp),
+
+    Column(
+        modifier = Modifier
+            //.fillMaxSize()
+            .padding(8.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = text.toString(),
+        Text(
+            text = text.toString(),
             fontSize = 70.sp,
         )
-        Button(
-            modifier = Modifier
-                .fillMaxWidth(),
-            onClick = {
-                text++
-                Log.i("Counter", text.toString())
-            }) {
-            Text(text = "증가")
+        Row() {
+            Button( modifier = Modifier.weight(1f),
+                onClick = {
+                    text++
+                }) {
+                Text(text = "증가")
+            }
+            Spacer(modifier = Modifier.weight(0.5f))
+            Button( modifier = Modifier.weight(1f),
+                onClick = {
+                    if (text > 0) text--
+                }) {
+                Text(text = "감소")
+            }
         }
+
+
     }
 }
 
